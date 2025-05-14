@@ -1,0 +1,119 @@
+import './style.css';
+import Chart from 'chart.js/auto';
+
+const app = document.querySelector('#app');
+
+const questions = {
+  1: [],
+  2: [],
+  3: []
+}
+
+const state = {
+  levelIndex: 0,
+  questionIndex: 0,
+  questionOrder: []
+};
+
+const levelLabels = {
+  1: {'label': 'Level 1', 'description': 'Basic questions to assess your current state.'},
+  2: {'label': 'Level 2', 'description': 'Intermediate questions to assess your current state.'},
+  3: {'label': 'Level 3', 'description': 'Advanced questions to assess your current state.'}
+};
+
+async function loadQuestions() {
+  // Load level 1 questions
+  const response = await fetch('/hillsong-ca-gift-cards/level1.txt');
+  const text = await response.text();
+  questions[1] = text.split('\n').filter(Boolean);
+  // Load level 2 questions
+  const response2 = await fetch('/hillsong-ca-gift-cards/level2.txt');
+  const text2 = await response2.text();
+  questions[2] = text2.split('\n').filter(Boolean);
+  // Load level 3 questions
+  const response3 = await fetch('/hillsong-ca-gift-cards/level3.txt');
+  const text3 = await response3.text();
+  questions[3] = text3.split('\n').filter(Boolean);
+}
+
+async function initialize() {
+  await loadQuestions();
+  render();
+}
+
+function render() {
+  if (state.levelIndex === 0) {
+
+    app.innerHTML = `
+      <div class="home">
+      <h1>Gifts of the Spirit</h1>
+      <div class="level-buttons">
+        ${[1,2,3]
+          .map(
+            (num) => `
+              <button class="level-button" data-value="${num}">
+                <strong>${levelLabels[num].label}</strong>
+                </br>
+                ${levelLabels[num].description}
+              </button>
+            `
+          )
+          .join('')}
+      </div>
+      </div>
+    `;
+
+    document.querySelectorAll('.level-button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+
+        // Set the level index based on the button clicked
+        state.levelIndex = parseInt(e.target.dataset.value);
+
+        // Randomly initialize the order of the questions
+        state.questionOrder = [];
+        for (let i = 0; i < questions[state.levelIndex].length; i++) {
+          state.questionOrder.push(i);
+        }
+        state.questionOrder.sort(() => Math.random() - 0.5);
+
+        // Reset the question index
+        state.questionIndex = 0;
+
+        render();
+      });
+    });
+
+  } else if (state.levelIndex > 0) {
+
+    app.innerHTML = `
+      <div class="question-header-container">
+        <button style="align-items:left" class="nav-button" id="exit">Exit</button>
+        <h1>Gifts of the Spirit</h3>
+        <button id="next" class="nav-button" style="visibility: ${state.questionIndex < questions[state.levelIndex].length - 1 ? 'visible' : 'hidden'}">Next</button>
+      </div>
+      <div>
+        <h1>${questions[state.levelIndex][state.questionOrder[state.questionIndex]]}</h1>
+      </div>
+      <div class="process-bar-container">
+        <p class="progress-text">Question ${state.questionIndex + 1} of ${questions[state.levelIndex].length}</p>
+        <div class="progress-bar" style="width: ${(state.questionIndex + 1) / questions[state.levelIndex].length * 100}%;"></div>
+      </div>
+    `;
+
+    document.querySelector('#exit').addEventListener('click', () => {
+      // Reset the state
+      state.levelIndex = 0;
+      state.questionIndex = 0;
+      state.questionOrder = [];
+      render();
+    }
+    );
+    document.querySelector('#next').addEventListener('click', () => {
+      // Increment the question index
+      state.questionIndex++;
+      render();
+    });
+  }
+}
+
+initialize();

@@ -23,18 +23,15 @@ const levelLabels = {
 
 async function loadQuestions() {
   // Load level 1 questions
-  const response = await fetch('/level1.txt');
-  // const response = await fetch('/hillsong-ca-gift-cards/level1.txt');
+  const response = await fetch('/hillsong-ca-gift-cards/level1.txt');
   const text = await response.text();
   questions[1] = text.split('\n').filter(Boolean);
   // Load level 2 questions
-  const response2 = await fetch('/level2.txt');
-  // const response2 = await fetch('/hillsong-ca-gift-cards/level2.txt');
+  const response2 = await fetch('/hillsong-ca-gift-cards/level2.txt');
   const text2 = await response2.text();
   questions[2] = text2.split('\n').filter(Boolean);
   // Load level 3 questions
-  const response3 = await fetch('/level3.txt');
-  // const response3 = await fetch('/hillsong-ca-gift-cards/level3.txt');
+  const response3 = await fetch('/hillsong-ca-gift-cards/level3.txt');
   const text3 = await response3.text();
   questions[3] = text3.split('\n').filter(Boolean);
 }

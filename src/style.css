@@ -28,16 +28,6 @@ body {
   align-items: center;
   background-color: var(--background-color);
   color: var(--accent-color);
-  animation: fadeIn 0.5s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 #app {

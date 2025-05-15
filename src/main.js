@@ -59,9 +59,9 @@ function render() {
           .map(
             (num) => `
               <button class="level-button" data-value="${num}">
-                <p class="button-label">${levelLabels[num].label}</p>
+                <p class="button-label" data-value="${num}">${levelLabels[num].label}</p>
                 </br>
-                <p class="button-description">${levelLabels[num].description}</p>
+                <p class="button-description" data-value="${num}">${levelLabels[num].description}</p>
               </button>
             `
           )

@@ -16,22 +16,25 @@ const state = {
 };
 
 const levelLabels = {
-  1: {'label': 'Level 1', 'description': 'Basic questions to assess your current state.'},
-  2: {'label': 'Level 2', 'description': 'Intermediate questions to assess your current state.'},
-  3: {'label': 'Level 3', 'description': 'Advanced questions to assess your current state.'}
+  1: {'label': 'Level 1', 'description': '(Helps people feel comfortable, gets conversation started, builds trust.)'},
+  2: {'label': 'Level 2', 'description': '(Encourages reflection on calling, wiring, spiritual formation, and purpose.)'},
+  3: {'label': 'Level 3', 'description': '(Challenges people to think about their impact, role in the Body, and ongoing growth.)'}
 };
 
 async function loadQuestions() {
   // Load level 1 questions
-  const response = await fetch('/hillsong-ca-gift-cards/level1.txt');
+  const response = await fetch('/level1.txt');
+  // const response = await fetch('/hillsong-ca-gift-cards/level1.txt');
   const text = await response.text();
   questions[1] = text.split('\n').filter(Boolean);
   // Load level 2 questions
-  const response2 = await fetch('/hillsong-ca-gift-cards/level2.txt');
+  const response2 = await fetch('/level2.txt');
+  // const response2 = await fetch('/hillsong-ca-gift-cards/level2.txt');
   const text2 = await response2.text();
   questions[2] = text2.split('\n').filter(Boolean);
   // Load level 3 questions
-  const response3 = await fetch('/hillsong-ca-gift-cards/level3.txt');
+  const response3 = await fetch('/level3.txt');
+  // const response3 = await fetch('/hillsong-ca-gift-cards/level3.txt');
   const text3 = await response3.text();
   questions[3] = text3.split('\n').filter(Boolean);
 }
@@ -45,16 +48,20 @@ function render() {
   if (state.levelIndex === 0) {
 
     app.innerHTML = `
-      <div class="home">
-      <h1>Gifts of the Spirit</h1>
-      <div class="level-buttons">
+      <div class="home-container">
+      <div class="nav-header-container">
+        <button id="exit" class="nav-button" style="visibility: hidden">Exit</button>
+        <h1>Gifts of the Spirit</h3>
+        <button id="next" class="nav-button" style="visibility: hidden">Next</button>
+      </div>
+      <div class="buttons-container">
         ${[1,2,3]
           .map(
             (num) => `
               <button class="level-button" data-value="${num}">
-                <strong>${levelLabels[num].label}</strong>
+                <p class="button-label">${levelLabels[num].label}</p>
                 </br>
-                ${levelLabels[num].description}
+                <p class="button-description">${levelLabels[num].description}</p>
               </button>
             `
           )
@@ -86,17 +93,19 @@ function render() {
   } else if (state.levelIndex > 0) {
 
     app.innerHTML = `
-      <div class="question-header-container">
+      <div class="level-container">
+      <div class="nav-header-container">
         <button style="align-items:left" class="nav-button" id="exit">Exit</button>
         <h1>Gifts of the Spirit</h3>
         <button id="next" class="nav-button" style="visibility: ${state.questionIndex < questions[state.levelIndex].length - 1 ? 'visible' : 'hidden'}">Next</button>
       </div>
-      <div>
+      <div class="question-container">
         <h1>${questions[state.levelIndex][state.questionOrder[state.questionIndex]]}</h1>
       </div>
-      <div class="process-bar-container">
+      <div class="progress-bar-container">
         <p class="progress-text">Question ${state.questionIndex + 1} of ${questions[state.levelIndex].length}</p>
         <div class="progress-bar" style="width: ${(state.questionIndex + 1) / questions[state.levelIndex].length * 100}%;"></div>
+      </div>
       </div>
     `;
 

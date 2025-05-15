@@ -1,5 +1,7 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "aileron", sans-serif;
+  font-weight: 300;
+  font-style: normal;
   line-height: 1.5;
 
   font-synthesis: none;
@@ -18,13 +20,12 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "aileron", sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: var(--background-color);
   color: var(--accent-color);
   animation: fadeIn 0.5s;
@@ -41,21 +42,32 @@ body {
 
 #app {
   background: var(--background-color);
-  padding: 20px;
+  padding: 10px;
   border-radius: 4px;
   width: 100%;
   max-width: 500px;
+  height: 95vh;
   text-align: center;
 }
 
 h1 {
-  margin: 1em;
+  margin: 0.5em;
+  font-weight: 800;
+  letter-spacing: -0.05em;
 }
 
-.level-buttons {
+.home-container {
   display: flex;
   flex-direction: column;
-  min-height: 400px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1
 }
 
 .level-button {
@@ -63,7 +75,6 @@ h1 {
   display: block;
   padding: 10px;
   margin: 2% 0;
-  font-size: 16px;
   width: 100%;
   background-color: var(--accent-color);
   color: var(--background-color);
@@ -72,20 +83,51 @@ h1 {
   animation: fadeIn 0.6s;
 }
 
-.question {
-  color: var(--accent-color);
+.button-label {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin: 10px;
 }
 
-.question-header-container {
+.button-description {
+  font-size: 16px;
+  margin: 10px;
+  font-weight: 800;
+}
+
+.level-container{
   display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start; /* Top */
+}
+
+.nav-header-container {
+  display: flex;
+  align-self: flex-start;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   text-align: center;
 }
 
+.question-container {
+  justify-content: space-between;
+  text-align: center;
+}
+
+.progress-bar-container {
+  align-self: flex-end;
+  height: 30px;
+  width: 100%;
+  margin: 20px;
+}
+
 .nav-button {
   background-color: rgba(var(--accent-color), 0.5);
+  align-items: left;
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
   border-radius: 20px;
@@ -93,6 +135,10 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
+}
+
+.question {
+  color: var(--accent-color);
 }
 
 .progress-text {

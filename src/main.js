@@ -100,18 +100,21 @@ function render() {
 
     app.innerHTML = `
       <div class="level-container">
-      <div class="nav-header-container">
-        <button style="align-items:left" class="nav-button" id="exit">Exit</button>
-        <h1>Gifts of the Spirit</h3>
-        <button id="next" class="nav-button" style="visibility: ${state.questionIndex < questions[state.levelIndex].length - 1 ? 'visible' : 'hidden'}">Next</button>
-      </div>
-      <div class="question-container">
-        <h1>${questions[state.levelIndex][state.questionOrder[state.questionIndex]]}</h1>
-      </div>
-      <div class="progress-bar-container">
-        <p class="progress-text">Question ${state.questionIndex + 1} of ${questions[state.levelIndex].length}</p>
-        <div class="progress-bar" style="width: ${(state.questionIndex + 1) / questions[state.levelIndex].length * 100}%;"></div>
-      </div>
+        <div class="nav-header-container">
+          <button style="visibility: ${state.questionIndex > 0 ? 'visible' : 'hidden'}" class="nav-button" id="back">Back</button>
+          <h1>Gifts of the Spirit</h3>
+          <button id="next" class="nav-button" style="visibility: ${state.questionIndex < questions[state.levelIndex].length - 1 ? 'visible' : 'hidden'}">Next</button>
+        </div>
+        <div class="question-container">
+          <h1>${questions[state.levelIndex][state.questionOrder[state.questionIndex]]}</h1>
+        </div>
+        <div class="progress-bar-container">
+          <div style="width: 100%" >
+            <p class="progress-text">Question ${state.questionIndex + 1} of ${questions[state.levelIndex].length}</p>
+            <div class="progress-bar" style="width: ${(state.questionIndex + 1) / questions[state.levelIndex].length * 100}%;"></div>
+          </div>
+          <button style="align-self: flex-end;" class="nav-button" id="exit">Exit</button>
+        </div>
       </div>
     `;
 
@@ -120,6 +123,11 @@ function render() {
       state.levelIndex = 0;
       state.questionIndex = 0;
       state.questionOrder = [];
+      render();
+    });
+    document.querySelector('#back').addEventListener('click', () => {
+      // Increment the question index
+      state.questionIndex--;
       render();
     });
     document.querySelector('#next').addEventListener('click', () => {

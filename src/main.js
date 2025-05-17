@@ -109,7 +109,7 @@ function render() {
           <h1>${questions[state.levelIndex][state.questionOrder[state.questionIndex]]}</h1>
         </div>
         <div class="progress-bar-container">
-          <div style="width: 100%" >
+          <div style="width: 100%; margin-right: 20px" >
             <p class="progress-text">Question ${state.questionIndex + 1} of ${questions[state.levelIndex].length}</p>
             <div class="progress-bar" style="width: ${(state.questionIndex + 1) / questions[state.levelIndex].length * 100}%;"></div>
           </div>

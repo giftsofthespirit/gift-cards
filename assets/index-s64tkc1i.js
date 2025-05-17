@@ -49,7 +49,7 @@ var wo=Object.defineProperty;var So=(i,t,e)=>t in i?wo(i,t,{enumerable:!0,config
           <h1>${_t[I.levelIndex][I.questionOrder[I.questionIndex]]}</h1>
         </div>
         <div class="progress-bar-container">
-          <div style="width: 100%" >
+          <div style="width: 100%; margin-right: 20px" >
             <p class="progress-text">Question ${I.questionIndex+1} of ${_t[I.levelIndex].length}</p>
             <div class="progress-bar" style="width: ${(I.questionIndex+1)/_t[I.levelIndex].length*100}%;"></div>
           </div>

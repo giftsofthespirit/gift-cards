@@ -8,16 +8,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    --background-color: #ffffff;
+    --accent-color: #fa990a;
 }
 
 /* Site Styling */
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color: #ffffff;
-    --accent-color: #fa990a;
-  }
-}
 
 body {
   font-family: "aileron", sans-serif;

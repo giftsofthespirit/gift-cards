@@ -64,6 +64,9 @@ function render() {
           )
           .join('')}
       </div>
+      <div>
+          <button id="instructions" class="nav-button">Instructions</button>
+      </div>
       </div>
     `;
 
@@ -85,6 +88,12 @@ function render() {
 
         render();
       });
+    });
+
+    document.querySelector('#instructions').addEventListener('click', () => {
+      // Reset the state
+      state.levelIndex = -1;
+      render();
     });
 
   } else if (state.levelIndex > 0) {
@@ -112,11 +121,46 @@ function render() {
       state.questionIndex = 0;
       state.questionOrder = [];
       render();
-    }
-    );
+    });
     document.querySelector('#next').addEventListener('click', () => {
       // Increment the question index
       state.questionIndex++;
+      render();
+    });
+  } else if (state.levelIndex === -1) {
+
+    app.innerHTML = `
+      <div class="instructions-page-container">
+      <div class="nav-header-container">
+        <button id="exit" class="nav-button" style="visibility: hidden">Exit</button>
+        <h1>Gifts of the Spirit</h3>
+        <button id="next" class="nav-button" style="visibility: hidden">Next</button>
+      </div>
+      <div class="instructions-container">
+        <h2>Instructions</h3>
+        <p>A Game for 2+ Players</p>
+        <h3>Purpose</h3>
+        <p>This game is designed to help followers of Jesus discover more about one another, explore spiritual gifts, and reflect on how we participate in Christ’s work in the world.</p>
+        <h3>How to Play</3h>
+        <ol>
+          <li>Take turns selecting a card from the current level.</li>
+          <li>Two ways to play each card:</li>
+          <ul>
+            <li>Everyone in the group answers the question.</li>
+            <li>The card player picks one person to answer.</li>
+          </ul>
+          <li>After at least 10 questions (or more) have been played in the current level, the group may choose to advance to the next level.</li>
+        </ol>
+      </div>
+      <div class="back-container">
+      </div>
+        <button id="home" class="nav-button">Exit</button>
+      </div>
+    `;
+
+    document.querySelector('#home').addEventListener('click', () => {
+      // Reset the state
+      state.levelIndex = 0;
       render();
     });
   }

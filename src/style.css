@@ -46,12 +46,21 @@ h1 {
   letter-spacing: -0.05em;
 }
 
+li {
+  font-family: "aileron", sans-serif;
+  font-weight: 300;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.instructions-container {
+  text-align: left;
 }
 
 .buttons-container {

@@ -3,6 +3,10 @@ import Chart from 'chart.js/auto';
 
 const app = document.querySelector('#app');
 
+const appHeight = () => document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
+window.addEventListener('resize', appHeight)
+appHeight()
+
 const questions = {
   1: [],
   2: [],
@@ -64,7 +68,7 @@ function render() {
           )
           .join('')}
       </div>
-      <div>
+      <div class="instructions-button-contaier">
           <button id="instructions" class="nav-button">Instructions</button>
       </div>
       </div>
